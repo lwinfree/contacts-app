@@ -1,6 +1,3 @@
 json.array! @contacts.each do |contact|
-  json.first contact.first_name
-  json.last contact.last_name
-  json.email contact.email
-  json.phone contact.phone_number
+  json.partial! "contact.json.jbuilder", contact: contact
 end
