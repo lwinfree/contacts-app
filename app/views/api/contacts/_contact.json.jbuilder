@@ -2,6 +2,8 @@ json.first contact.first_name
 json.last contact.last_name
 json.email contact.email
 json.phone contact.phone_number
+json.middle contact.middle_name
+json.bio contact.bio
 
 json.formatted do
   json.updated_at contact.friendly_updated_at
