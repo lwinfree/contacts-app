@@ -1,6 +1,11 @@
 class Contact < ApplicationRecord
   #can add model methods here! And then call them in the views
 
+  validates :first_name, :last_name, presence: true
+  validates :email, uniqueness: true
+  # validates_format_of :email, with: (insert regex here) 
+
+
   def friendly_updated_at
     updated_at.strftime("%A, %d %b %Y %l:%M %p")
   end
