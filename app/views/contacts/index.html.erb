@@ -1,0 +1,7 @@
+<h1>Contacts</h1>
+<%@contacts.each do |contact|%>
+  <h2>Name: <%=contact.full_name%></h2>
+  <h4>Email: <%=contact.email%></h4>
+  <a href="/contacts/<%=contact.id%>">More Info</a>
+<%end%>
+

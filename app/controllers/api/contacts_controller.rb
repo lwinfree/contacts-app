@@ -1,5 +1,7 @@
 class Api::ContactsController < ApplicationController
 
+  # before_action :authenticate_user
+
   # def contact_method
   #   @contact = Contact.first
   #   render 'contact.json.jbuilder'
@@ -13,13 +15,22 @@ class Api::ContactsController < ApplicationController
   def index
     @contacts = Contact.all
 
-    search_name = params[:search_name]
-    if search_name
-      @contacts = @contacts.where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR phone_number ILIKE ? OR middle_name ILIKE ? OR bio ILIKE ?", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%")
+    # search_name = params[:search_name]
+    # if search_name
+    #   @contacts = @contacts.where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR phone_number ILIKE ? OR middle_name ILIKE ? OR bio ILIKE ?", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%", "%#{search_name}%")
+    # end
+    if params[:group]
+      group = Group.find_by(name: params[:group])
+      @contacts = group.contacts
     end
-
-
     render 'contacts.json.jbuilder'
+
+    # if current_user
+    #   @contacts = current_user.contacts
+    #   render "contacts.json.jbuilder"
+    # else
+    #   render json: []
+    # end
   end
 
   def show
@@ -35,6 +46,7 @@ class Api::ContactsController < ApplicationController
       phone_number: params["phone_number"],
       middle_name: params["middle_name"],
       bio: params["bio"],
+      user_id: current_user.id,
       )
     if @contact.save
       render 'show.json.jbuilder'
