@@ -46,7 +46,7 @@ class Api::ContactsController < ApplicationController
       phone_number: params["phone_number"],
       middle_name: params["middle_name"],
       bio: params["bio"],
-      user_id: current_user.id,
+      user_id: 1,
       )
     if @contact.save
       render 'show.json.jbuilder'
